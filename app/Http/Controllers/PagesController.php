@@ -12,7 +12,13 @@ class PagesController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home(){
-        return view('welcome');
+        $chusqers = [
+
+        ];
+
+        return view('home', [
+            'chusqers' => $chusqers
+        ]);
     }
 
     /**
