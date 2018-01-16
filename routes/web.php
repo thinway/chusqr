@@ -14,6 +14,9 @@
 Route::get('/', 'PagesController@home');
 Route::get('/saludo', 'PagesController@saludo');
 
+Route::get('/chusqers/create', 'ChusqersController@create');
+Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
+Route::post('/chusqers/create', 'ChusqersController@store');
 
 
 

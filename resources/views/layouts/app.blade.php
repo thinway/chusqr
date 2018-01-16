@@ -9,7 +9,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/chusqr.css">
+    <link rel="stylesheet" href="{{ url('/') }}/css/chusqr.css">
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -22,11 +22,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Chusqr</a>
+                <a class="navbar-brand" href="{{ url('/') }}">Chusqr</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Hander Topics</a></li>
+                    <li class="active"><a href="{{ url('/') }}/chusqers/create">Añadir Mensaje</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="./">Login <span class="sr-only">(current)</span></a></li>
