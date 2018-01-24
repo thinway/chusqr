@@ -35,4 +35,5 @@
     <div class="text-center">
         {{ $chusqers->links('pagination::bootstrap-4') }}
     </div>
+
 @endsection

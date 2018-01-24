@@ -18,13 +18,5 @@ Route::get('/chusqers/create', 'ChusqersController@create');
 Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
 Route::post('/chusqers/create', 'ChusqersController@store');
 
-
-
-
-
-
-
-
-
-
-
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
