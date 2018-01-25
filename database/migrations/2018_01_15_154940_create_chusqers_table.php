@@ -16,7 +16,6 @@ class CreateChusqersTable extends Migration
         Schema::create('chusqers', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
-            $table->string('author');
             $table->string('image');
             $table->timestamps();
         });

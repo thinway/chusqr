@@ -40,7 +40,11 @@ class ChusqersController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateChusqerRequest $request){
+
+        $user = $request->user();
+
         Chusqer::create([
+            'user_id'   => $user->id,
             'content'   => $request->input('content'),
             'author'    => 'thinway',
             'image'     => 'http://lorempixel.com/150/150/?'.mt_rand(0,1000)

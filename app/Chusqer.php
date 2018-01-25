@@ -13,4 +13,9 @@ class Chusqer extends Model
     // Con $guarded se indican explícitamente los campos de la tabla
     // que NO se podrán modificar programáticamente.
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

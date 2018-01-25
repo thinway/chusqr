@@ -10,7 +10,6 @@ $factory->define(App\Chusqer::class, function (Faker $faker) {
 
     return [
         'content'   => $faker->realText(281),
-        'author'    => $faker->userName,
         'image'     => 'https://picsum.photos/150/150/?random',
         'created_at'=> ($time1 < $time2) ? $time1 : $time2,
         'updated_at'=> ($time1 > $time2) ? $time1 : $time2
