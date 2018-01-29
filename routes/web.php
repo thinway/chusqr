@@ -18,5 +18,7 @@ Route::get('/chusqers/create', 'ChusqersController@create')->middleware('auth');
 Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
 Route::post('/chusqers/create', 'ChusqersController@store')->middleware('auth');
 
+Route::get('/users/{user}', 'UsersController@index');
+
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

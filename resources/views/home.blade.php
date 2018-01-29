@@ -8,14 +8,8 @@
         {{ $chusqers->links() }}
     </div>
 
-
     @forelse($chusqers as $chusquer)
-        <div class="row chusq">
-            <div class="col-md-12">
-                <p class="chusq-text">{{ $chusquer['content'] }}</p>
-                <p><strong>Autor:</strong> {{ $chusquer->user->name }}</p>
-            </div>
-        </div>
+        @include('chusqers.chusqer')
     @empty
         <p>No hay chusqers para mostrar.</p>
     @endforelse

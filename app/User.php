@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Un usuario tendrá varios mensajes (chusqers)
+     */
+    public function chusqers()
+    {
+        return $this->hasMany(Chusqer::class);
+    }
 }
