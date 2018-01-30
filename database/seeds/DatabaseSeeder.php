@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             $hashtags->each(function (App\Hashtag $hashtag) use ($chusqers){
                 $hashtag->chusqers()
                     ->sync(
-                        [1, 3, 5]
                         $chusqers->random(3)
                     );
             });
