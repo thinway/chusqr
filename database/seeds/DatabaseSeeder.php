@@ -12,10 +12,31 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(App\User::class, 10)->create()->each(function (App\User $user){
 
-            factory(\App\Chusqer::class,50)->create(['user_id' => $user->id]);
+
+        $users = factory(App\User::class, 10)->create();
+        $hashtags = factory(App\Hashtag::class, 20)->create();
+
+        $users->each(function(App\User $user) use ($users, $hashtags){
+            $chusqers = factory(App\Chusqer::class)
+                ->times(20)
+                ->create([
+                    'user_id' => $user->id,
+                ]);
+
+            $hashtags->each(function (App\Hashtag $hashtag) use ($chusqers){
+                $hashtag->chusqers()
+                    ->sync(
+                        [1, 3, 5]
+                        $chusqers->random(3)
+                    );
+            });
 
         });
+
+
+
+
+
     }
 }

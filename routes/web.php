@@ -20,5 +20,7 @@ Route::post('/chusqers/create', 'ChusqersController@store')->middleware('auth');
 
 Route::get('/users/{user}', 'UsersController@index');
 
+Route::get('/hashtag/{hashtag}', 'HashtagController@index');
+
 Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');

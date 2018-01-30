@@ -18,4 +18,14 @@ class Chusqer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Un chusqer tiene varios hashtags.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function hashtags()
+    {
+        return $this->belongsToMany(Hashtag::class);
+    }
 }
