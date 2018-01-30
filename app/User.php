@@ -32,6 +32,6 @@ class User extends Authenticatable
      */
     public function chusqers()
     {
-        return $this->hasMany(Chusqer::class);
+        return $this->hasMany(Chusqer::class)->latest();
     }
 }

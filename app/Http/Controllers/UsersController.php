@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index(User $user)
     {
-        $chusqers = $user->chusqers()->latest()->paginate(10);
+        $chusqers = $user->chusqers()->paginate(10);
 
         return view('users.index', [
             'user'      => $user,
