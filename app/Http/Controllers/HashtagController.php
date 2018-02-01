@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 
 class HashtagController extends Controller
 {
-    public function index(Hashtag $hashtag)
+    public function index($hashtag)
     {
-        return view('hashtag.index', ['hashtag' => $hashtag]);
+        $hashtag = Hashtag::where('slug', $hashtag)->first();
+
+        $chusqers = $hashtag->chusqers()->paginate(10);
+
+        return view('hashtag.index', [
+            'hashtag' => $hashtag,
+            'chusqers'=> $chusqers
+        ]);
     }
 }

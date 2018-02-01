@@ -10,7 +10,7 @@ $factory->define(App\Hashtag::class, function (Faker $faker) {
     $time2 = Carbon::createFromTimestamp($faker->dateTimeThisDecade()->getTimestamp());
 
     return [
-        'slug' => $slug,
+        'slug' => $faker->word,
         'created_at'=> ($time1 < $time2) ? $time1 : $time2,
         'updated_at'=> ($time1 > $time2) ? $time1 : $time2
     ];

@@ -12,8 +12,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index($user)
     {
+        $user = User::where('slug', $user)->first();
         $chusqers = $user->chusqers()->paginate(10);
 
         return view('users.index', [
