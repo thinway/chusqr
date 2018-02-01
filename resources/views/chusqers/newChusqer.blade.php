@@ -1,15 +1,12 @@
 @auth()
     <form action="/chusqers/create" method="post">
         {{ csrf_field() }}
-        <div class="form-group @if( $errors->has('content'))has-error @endif">
-            <input type="text" class="form-control" id="content" name="content" placeholder="What's going on!">
+        <div class="small-12 cell">
+            <input id="content" type="text" name="content" value="{{ old('content') }}" aria-describedby="contentHelpText" class="{{ $errors->has('content') ? 'is-invalid-input' : ''}}">
+            @if( $errors->has('content') )
+                <p class="validation-error">{{ $errors->first('content') }}</p>
+            @endif
+            <p class="help-text" id="contentHelpText">Introduce un nuevo Chusqer</p>
         </div>
-        @if($errors->has('content'))
-            @foreach($errors->get('content') as $message)
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-            @endforeach
-        @endif
     </form>
 @endauth

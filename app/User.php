@@ -34,4 +34,35 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chusqer::class)->latest();
     }
+
+    /**
+     * Quién sigue un usuario.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows()
+    {
+       return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_id');
+    }
+
+    /**
+     * Quién sigue a un usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
