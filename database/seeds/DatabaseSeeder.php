@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
                 );
             });
 
-            //
+            $user->follows()->sync(
+                $users->random(10)
+            );
         });
     }
 }

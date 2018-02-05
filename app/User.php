@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 'email', 'slug', 'password', 'avatar'
     ];
 
     /**
@@ -37,6 +37,7 @@ class User extends Authenticatable
 
     /**
      * Quién sigue un usuario.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function follows()
@@ -45,13 +46,24 @@ class User extends Authenticatable
     }
 
     /**
-     * Quién sigue a un usuario.
+     * Quién sigue A un usuario.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id');
+    }
+
+    /**
+     * Comprueba si un usuario sigue a otro.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function isFollowing(User $user)
+    {
+        return $this->follows->contains($user);
     }
 
 

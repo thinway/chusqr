@@ -27,7 +27,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                     @else
                         <li>
-                            <a href="{{ url('/') }}/users/{{ Auth::user()->id }}">
+                            <a href="{{ url('/') }}/{{ Auth::user()->slug }}">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="menu vertical">

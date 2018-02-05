@@ -77,6 +77,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'slug' => str_slug($data['name'], "-"),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'avatar'    => 'https://picsum.photos/150/150/?random',

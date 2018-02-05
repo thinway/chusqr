@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index($user)
     {
-        $user = User::where('slug', $user)->first();
+        $user = $this->findUserByUsername($user);
         $chusqers = $user->chusqers()->paginate(10);
 
         return view('users.index', [
@@ -88,4 +88,72 @@ class UsersController extends Controller
     {
         //
     }
+
+    /**
+     * Muestra los usuarios que sigue un usuario.
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function follows($username)
+    {
+        $user = $this->findUserByUsername($username);
+
+        return view('users.follows', ['user' => $user]);
+    }
+
+    /**
+     * Sigue a un usuario.
+     *
+     * @param $username
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function follow($username, Request $request)
+    {
+        $user = $this->findUserByUsername($username);
+        $me = $request->user();
+
+        $me->follows()->attach($user);
+
+        return redirect("/{$user->slug}")->withSuccess('Usuario Seguido');
+    }
+
+    public function unfollow($username, Request $request)
+    {
+        $user = $this->findUserByUsername($username);
+        $me = $request->user();
+
+        $me->follows()->detach($user);
+
+        return redirect("/{$user->slug}")->withSuccess('Lo has dejado de seguir');
+
+    }
+
+    /**
+     * Busca un usuario por su slug.
+     *
+     * @param $slug
+     * @return mixed
+     */
+    public function findUserByUsername($slug)
+    {
+        return User::where('slug', $slug)->first();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
