@@ -30,3 +30,9 @@ div.success {
 .chusq {
     padding: 10px;
 }
+
+.gallery > .gallery-item {
+    width: calc(33.33333% - 1.25rem);
+    margin-right: 0.625rem;
+    margin-left: 0.625rem;
+}

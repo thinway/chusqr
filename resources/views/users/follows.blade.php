@@ -3,15 +3,12 @@
 @section('content')
     <div class="grid-x grid-margin-x">
     @foreach($user->follows->chunk(3) as $row)
-        <div class="small-12 medium-4 cell">
             @foreach($row as $user)
-                <div class="card" style="">
-                    <div class="card-divider">
-                        {{ $user->name }}
-                    </div>
+                <div class="small-4 cell">
+                <div class="card">
                     <img src="https://picsum.photos/200/200/?random">
                     <div class="card-section">
-                        <h4>&#64;{{ $user->slug }}</h4>
+                        <h4><a href="/{{ $user->slug }}">&#64;{{ $user->slug }}</a></h4>
                         <table class="text-center">
                             <thead>
                             <tr>
@@ -28,8 +25,9 @@
                         </table>
                     </div>
                 </div>
+                </div>
             @endforeach
-        </div>
+
     @endforeach
     </div>
 @endsection

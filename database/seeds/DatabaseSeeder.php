@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
 
-        $users = factory(App\User::class, 10)->create();
+        $users = factory(App\User::class, 30)->create();
 
         $hashtags = factory(App\Hashtag::class, 20)->create();
 
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             });
 
             $user->follows()->sync(
-                $users->random(10)
+                $users->random(mt_rand(1, 5))
             );
         });
     }
