@@ -66,15 +66,9 @@ class User extends Authenticatable
         return $this->follows->contains($user);
     }
 
-
-
-
-
-
-
-
-
-
-
+    public function isMe(User $user)
+    {
+        return $this->slug == $user->slug;
+    }
 
 }

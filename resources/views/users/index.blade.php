@@ -11,14 +11,16 @@
                 <table class="text-center">
                     <thead>
                     <tr>
+                        <th>Chusqers</th>
                         <th class="text-center"><a href="/{{ $user->slug }}/follows">Following</a></th>
-                        <th class="text-center">Followers</th>
+                        <th class="text-center"><a href="/{{ $user->slug }}/followers">Followers</a></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{ count($user->follows) }}</td>
-                        <td>{{ count($user->followers) }}</td>
+                        <td>{{ $user->chusqers->count() }}</td>
+                        <td>{{ $user->follows->count() }}</td>
+                        <td>{{ $user->followers->count() }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -26,16 +28,18 @@
                 <img src="https://picsum.photos/300/300/?random" alt="" class="img-responsive">
                 <h2>{{ $user->name }}</h2>
                 <h3>&#64;{{ str_slug($user->name, "-") }}</h3>
-                @if( Auth::user()->isFollowing($user))
-                    <form action="{{ $user->slug }}/unfollow" method="post">
-                        {{ csrf_field() }}
-                        <button type="submit" class="alert button">Unfollow</button>
-                    </form>
-                @else
-                    <form action="{{ $user->slug }}/follow" method="post">
-                        {{ csrf_field() }}
-                        <button type="submit" class="button">Follow</button>
-                    </form>
+                @if(Auth::check() && !Auth::user()->isMe($user))
+                    @if( Auth::user()->isFollowing($user))
+                        <form action="{{ $user->slug }}/unfollow" method="post">
+                            {{ csrf_field() }}
+                            <button type="submit" class="alert button">Unfollow</button>
+                        </form>
+                    @else
+                        <form action="{{ $user->slug }}/follow" method="post">
+                            {{ csrf_field() }}
+                            <button type="submit" class="button">Follow</button>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>

@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/{user}', 'UsersController@index');
 Route::get('/{user}/follows', 'UsersController@follows');
+Route::get('/{user}/followers', 'UsersController@followers');
 Route::post('/{user}/follow', 'UsersController@follow')->middleware('auth');
 Route::post('/{user}/unfollow', 'UsersController@unfollow')->middleware('auth');
 

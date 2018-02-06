@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="grid-x grid-margin-x">
-    @foreach($user->follows->chunk(3) as $row)
+    @foreach($people->chunk(3) as $row)
             @foreach($row as $user)
                 <div class="small-4 cell">
                 <div class="card">
@@ -18,8 +18,8 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{{ count($user->follows) }}</td>
-                                <td>{{ count($user->followers) }}</td>
+                                <td>{{ $user->follows->count() }}</td>
+                                <td>{{ $user->followers->count() }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -27,7 +27,6 @@
                 </div>
                 </div>
             @endforeach
-
     @endforeach
     </div>
 @endsection
