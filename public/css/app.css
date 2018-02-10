@@ -6,6 +6,10 @@
     color: black;
 }
 
+.mine {
+    background-color: #FABADA;
+}
+
 .card .chusqer-content {
     margin: 15px;
 }

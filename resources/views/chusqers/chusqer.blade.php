@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card @isset($user) @if($user->id == $chusqer->user_id) mine @endif @endisset">
     <div class="card-divider">
         <p>Añadido por <a href="/{{ $chusqer->user->slug }}">{{ $chusqer->user->name }}</a> - <a href="{{ url('/') }}/chusqers/{{ $chusqer['id'] }}">Leer más</a></p>
     </div>

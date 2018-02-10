@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chusqer;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class UsersController extends Controller
     public function index($user)
     {
         $user = $this->findUserByUsername($user);
-        $chusqers = $user->chusqers()->paginate(10);
+        $followers = $user->follows->pluck('id')->toArray();
+
+        array_push($followers, $user->id);
+        $chusqers = Chusqer::whereIn('user_id', $followers)->latest()->paginate(10);
 
         return view('users.index', [
             'user'      => $user,
