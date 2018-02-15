@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chusqer;
+use App\Hashtag;
 use App\Http\Requests\CreateChusqerRequest;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class ChusqersController extends Controller
      * para coneguir el Chusqer facilitado por el parámetro.
      *
      * @param Chusqer $chusqer
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function show(Chusqer $chusqer)
     {
@@ -25,7 +26,7 @@ class ChusqersController extends Controller
     /**
      * Método para mostrar el formulario de alta de una nuevo mensaje Chusqer.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function create()
     {
@@ -37,18 +38,43 @@ class ChusqersController extends Controller
      * Utiliza la definición personalizada de un Request para validar los datos.
      *
      * @param CreateChusqerRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return mixed
      */
     public function store(CreateChusqerRequest $request){
 
         $user = $request->user();
 
-        Chusqer::create([
+        $hashtags = $this->extractHashtags($request->input('content'));
+
+        dd($hashtags);
+
+        $chusqer = Chusqer::create([
             'user_id'   => $user->id,
             'content'   => $request->input('content'),
             'image'     => 'http://lorempixel.com/150/150/?'.mt_rand(0,1000)
         ]);
 
+        foreach ($hashtags as $singleHashtag){
+            $hashtag = Hashtag::firstOrCreate(['slug' => $singleHashtag]);
+            $chusqer->hashtags()->attach($hashtag);
+        }
+
         return redirect('/');
+    }
+
+    public function extractHashtags($content)
+    {
+        preg_match_all("/(#\w+)/u", $content, $matches);
+
+        if( $matches ){
+            $hashtagsValues = array_count_values($matches[0]);
+            $hashtags = array_keys($hashtagsValues);
+        }
+
+        array_walk($hashtags, function(&$value){
+            $value = str_replace("#", "", $value);
+        });
+
+        return $hashtags;
     }
 }
