@@ -46,7 +46,7 @@ class ChusqersController extends Controller
 
         $hashtags = $this->extractHashtags($request->input('content'));
 
-        dd($hashtags);
+        //dd($hashtags);
 
         $chusqer = Chusqer::create([
             'user_id'   => $user->id,

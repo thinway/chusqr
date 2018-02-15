@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Chusqer;
+use App\Conversation;
+use App\PrivateMessage;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -158,6 +160,34 @@ class UsersController extends Controller
     public function findUserByUsername($slug)
     {
         return User::where('slug', $slug)->first();
+    }
+
+    public function sendPrivateMessage($username, Request $request)
+    {
+        $user = $this->findUserByUsername($username);
+        $me = $request->user();
+
+        $message = $request->input('message');
+
+        $conversation = Conversation::create();
+
+        $conversation->users()->attach($me);
+        $conversation->users()->attach($user);
+
+        $private_message = PrivateMessage::create([
+            'conversation_id' => $conversation->id,
+            'user_id' => $me->id,
+            'content' => $message,
+        ]);
+
+        return redirect('/conversations/'.$conversation->id);
+    }
+
+    public function showConversation(Conversation $conversation)
+    {
+        return view('users.conversation', [
+            'conversation' => $conversation
+        ]);
     }
 }
 

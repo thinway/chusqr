@@ -40,6 +40,13 @@
                             <button type="submit" class="button">Follow</button>
                         </form>
                     @endif
+                    @if(Gate::allows('dms', $user))
+                        <form action="/{{ $user->slug }}/dms" method="post">
+                            {{ csrf_field() }}
+                            <textarea name="message" id="message" rows="5"></textarea>
+                            <button type="submit" class="button">Mensaje Directo</button>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>
