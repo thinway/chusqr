@@ -14,7 +14,7 @@
                     {{ $message->created_at }}
                 </p>
                 <div class="card-section">
-
+                    {{ $message->user->name }}
                 </div>
             @endforeach
         </div>
