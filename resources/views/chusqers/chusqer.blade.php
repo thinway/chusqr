@@ -3,7 +3,7 @@
         <p>Añadido por <a href="/{{ $chusqer->user->slug }}">{{ $chusqer->user->name }}</a> - <a href="{{ url('/') }}/chusqers/{{ $chusqer['id'] }}">Leer más</a></p>
     </div>
     <p class="chusqer-content">
-        {{ $chusqer->content }}
+        <img src="{{ $chusqer->image }}" alt="">{{ $chusqer->content }}
     </p>
     <p class="chusqer-hashtags text-right">
         @foreach($chusqer->hashtags as $hashtag)

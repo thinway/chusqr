@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Chusqer extends Model
 {
@@ -27,5 +28,14 @@ class Chusqer extends Model
     public function hashtags()
     {
         return $this->belongsToMany(Hashtag::class);
+    }
+
+    public function getImageAttribute($image)
+    {
+        if( starts_with($image, "https://")){
+            return $image;
+        }
+
+        return  Storage::disk('public')->url($image);
     }
 }

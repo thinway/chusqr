@@ -13,7 +13,7 @@ class PagesController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home(){
-        $chusqers = Chusqer::orderBy('created_at', 'desc')->paginate(10);
+        $chusqers = Chusqer::orderBy('created_at', 'desc')->paginate(2);
 
         return view('home', [
             'chusqers' => $chusqers

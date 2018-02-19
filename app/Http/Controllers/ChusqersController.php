@@ -46,12 +46,17 @@ class ChusqersController extends Controller
 
         $hashtags = $this->extractHashtags($request->input('content'));
 
-        //dd($hashtags);
+
+        if( $image = $request->file('image') ){
+            $url = $image->store('image','public');
+        }else{
+            $url = "https://picsum.photos/150/150/?random";
+        }
 
         $chusqer = Chusqer::create([
             'user_id'   => $user->id,
             'content'   => $request->input('content'),
-            'image'     => 'http://lorempixel.com/150/150/?'.mt_rand(0,1000)
+            'image'     => $url,
         ]);
 
         foreach ($hashtags as $singleHashtag){
