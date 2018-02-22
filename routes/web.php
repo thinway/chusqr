@@ -30,6 +30,24 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/{user}/follow', 'UsersController@follow');
     Route::post('/{user}/unfollow', 'UsersController@unfollow');
     Route::post('/{user}/dms', 'UsersController@sendPrivateMessage');
+
+    Route::get('/profile/edit', 'UsersController@profile');
+    Route::get('/profile/account', 'UsersController@edit')->name('profile.account');
+    Route::get('/profile/password', 'UsersController@edit')->name('profile.password');
+    Route::get('/profile/avatar', 'UsersController@edit')->name('profile.avatar');
 });
 
 //Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+
+
+
+
+
+
+
+

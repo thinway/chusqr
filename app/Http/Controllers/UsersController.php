@@ -67,9 +67,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('users.edit');
     }
 
     /**
@@ -185,6 +185,11 @@ class UsersController extends Controller
         return view('users.conversation', [
             'conversation' => $conversation
         ]);
+    }
+
+    public function profile()
+    {
+        return view('users.edit');
     }
 }
 
