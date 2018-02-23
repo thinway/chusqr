@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Chusqer;
 use App\Conversation;
+use App\Http\Requests\UpdateUserRequest;
 use App\PrivateMessage;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -69,7 +72,9 @@ class UsersController extends Controller
      */
     public function edit()
     {
-        return view('users.edit');
+        $user = Auth::user();
+
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -79,9 +84,36 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request)
     {
-        //
+        $path = $request->path();
+        $user = Auth::user();
+        //dd( array_filter($request->all()) );
+
+        if( strpos($path, 'account')) {
+            $data = array_filter($request->all());
+            $user = User::findOrFail($user->id);
+
+            $user->fill($data);
+        }elseif ( strpos($path, 'password') ){
+
+
+            if( ! Hash::check($request->get('current_password'), $user->password ) ){
+                return redirect()->back()->with('error', 'La constraseña actual no es correcta');
+            }
+
+            if( strcmp($request->get('current_password'), $request->get('password')) == 0){
+                return redirect()->back()->with('error', 'La nueva contraseña debe ser diferente de la antigua.');
+            }
+
+            $user->password = bcrypt($request->get('password'));
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('profile.account')
+            ->with('exito', 'Datos actualizados');
     }
 
     /**

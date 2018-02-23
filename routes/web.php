@@ -33,7 +33,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/profile/edit', 'UsersController@profile');
     Route::get('/profile/account', 'UsersController@edit')->name('profile.account');
+    Route::patch('/profile/account', 'UsersController@update');
     Route::get('/profile/password', 'UsersController@edit')->name('profile.password');
+    Route::patch('/profile/password', 'UsersController@update');
     Route::get('/profile/avatar', 'UsersController@edit')->name('profile.avatar');
 });
 
