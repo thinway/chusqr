@@ -21,8 +21,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="{{ Request::is('profile/avatar') ? 'mine' : '' }}">
-                            <a href="{{ route('profile.avatar') }}">Avatar</a>
+                        <td class="{{ Request::is('profile/delete') ? 'mine' : '' }}">
+                            <a href="{{ route('profile.delete') }}">Delete</a>
                         </td>
                     </tr>
                 </tbody>
@@ -40,17 +40,17 @@
             @endif
             <form action="{{ Request::url() }}" method="POST">
                 {{ csrf_field() }}
-                {{ method_field('PATCH') }}
+
 
                 @if( Request::is('profile/account') )
                     @include('users.partials.account')
                 @elseif( Request::is('profile/password') )
                     @include('users.partials.password')
+                @elseif( Request::is('profile/delete') )
+                    @include('users.partials.delete')
                 @endif
 
-                <div class="small-12 columns">
-                    <button type="submit" class="button">Actualizar</button>
-                </div>
+
             </form>
         </div>
     </div>

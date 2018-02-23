@@ -1,3 +1,4 @@
+{{ method_field('PATCH') }}
 <div class="small-12 columns">
     <label for="current_password" class="{{ $errors->has('current_password') ? 'is-invalid-label' : ''}}">Password Actual</label>
     <input type="password" id="current_password" name="current_password" class="{{ $errors->has('current_password') ? 'is-invalid-input' : ''}}"></div>
@@ -16,4 +17,7 @@
     @if( $errors->has('password_confirmation') )
         <p class="validation-error">{{ $errors->first('password_confirmation') }}</p>
     @endif
+</div>
+<div class="small-12 columns">
+    <button type="submit" class="button">Actualizar</button>
 </div>

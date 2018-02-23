@@ -1,3 +1,4 @@
+{{ method_field('PATCH') }}
 <div class="small-12 columns">
     <label class="{{ $errors->has('name') ? 'is-invalid-label' : ''}}" for="name">Nombre</label>
     <input type="text" name="name" id="name" placeholder="{{ $user->name }}" class="{{ $errors->has('name') ? 'is-invalid-input' : ''}}">
@@ -11,4 +12,7 @@
     @if( $errors->has('email') )
         <p class="validation-error">{{ $errors->first('email') }}</p>
     @endif
+</div>
+<div class="small-12 columns">
+    <button type="submit" class="button">Actualizar</button>
 </div>

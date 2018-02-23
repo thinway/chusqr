@@ -22,8 +22,8 @@ class CreateChusqerHashtagTable extends Migration
             $table->primary(['chusqer_id', 'hashtag_id']);
 
             // Definimos las claves foráneas
-            $table->foreign('chusqer_id')->references('id')->on('chusqers');
-            $table->foreign('hashtag_id')->references('id')->on('hashtags');
+            $table->foreign('chusqer_id')->references('id')->on('chusqers')->onDelete('cascade');
+            $table->foreign('hashtag_id')->references('id')->on('hashtags')->onDelete('cascade');
         });
     }
 

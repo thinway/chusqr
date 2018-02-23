@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'PagesController@home');
+
+
+Route::get('/', 'PagesController@home')->name('home');
 Route::get('/saludo', 'PagesController@saludo');
 
 Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
@@ -19,11 +21,9 @@ Route::get('/hashtag/{hashtag}', 'HashtagController@index');
 
 Auth::routes();
 
-Route::get('/{user}', 'UsersController@index');
-Route::get('/{user}/follows', 'UsersController@follows');
-Route::get('/{user}/followers', 'UsersController@followers');
-
 Route::group(['middleware' => 'auth'], function(){
+    Route::redirect('/profile', '/profile/account', 302);
+
     Route::get('/chusqers/create', 'ChusqersController@create');
     Route::post('/chusqers/create', 'ChusqersController@store');
     Route::get('/conversations/{conversation}', 'UsersController@showConversation');
@@ -31,16 +31,20 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/{user}/unfollow', 'UsersController@unfollow');
     Route::post('/{user}/dms', 'UsersController@sendPrivateMessage');
 
+
     Route::get('/profile/edit', 'UsersController@profile');
     Route::get('/profile/account', 'UsersController@edit')->name('profile.account');
     Route::patch('/profile/account', 'UsersController@update');
     Route::get('/profile/password', 'UsersController@edit')->name('profile.password');
     Route::patch('/profile/password', 'UsersController@update');
     Route::get('/profile/avatar', 'UsersController@edit')->name('profile.avatar');
+    Route::get('/profile/delete', 'UsersController@edit')->name('profile.delete');
+    Route::delete('/profile/delete', 'UsersController@destroy');
 });
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/{user}', 'UsersController@index');
+Route::get('/{user}/follows', 'UsersController@follows');
+Route::get('/{user}/followers', 'UsersController@followers');
 
 
 
