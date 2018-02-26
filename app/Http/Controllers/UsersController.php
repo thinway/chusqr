@@ -8,11 +8,23 @@ use App\Http\Requests\UpdateUserRequest;
 use App\PrivateMessage;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+    private $user;
+
+    public function __construct()
+    {
+        $this->middleware( function($request, $next){
+            $this->user = auth()->user();
+
+            return $next($request);
+        });
+
+        $this->user = auth()->user();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,9 +84,7 @@ class UsersController extends Controller
      */
     public function edit()
     {
-        $user = Auth::user();
-
-        return view('users.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $this->user]);
     }
 
     /**
@@ -87,18 +97,16 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $path = $request->path();
-        $user = Auth::user();
-        //dd( array_filter($request->all()) );
 
         if( strpos($path, 'account')) {
             $data = array_filter($request->all());
-            $user = User::findOrFail($user->id);
+            $user = User::findOrFail($this->user->id);
 
             $user->fill($data);
         }elseif ( strpos($path, 'password') ){
 
 
-            if( ! Hash::check($request->get('current_password'), $user->password ) ){
+            if( ! Hash::check($request->get('current_password'), $this->user->password ) ){
                 return redirect()->back()->with('error', 'La constraseña actual no es correcta');
             }
 
@@ -106,7 +114,7 @@ class UsersController extends Controller
                 return redirect()->back()->with('error', 'La nueva contraseña debe ser diferente de la antigua.');
             }
 
-            $user->password = bcrypt($request->get('password'));
+            $this->user->password = bcrypt($request->get('password'));
         }
 
         $user->save();
@@ -124,9 +132,7 @@ class UsersController extends Controller
      */
     public function destroy()
     {
-        $user = Auth::user();
-
-        $user->delete();
+        $this->user->delete();
 
         return redirect()->route('home');
     }
