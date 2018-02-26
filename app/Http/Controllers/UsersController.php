@@ -7,6 +7,7 @@ use App\Conversation;
 use App\Http\Requests\UpdateUserRequest;
 use App\PrivateMessage;
 use App\User;
+use Illuminate\Foundation\Testing\HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,18 +31,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user)
+    public function index($id)
     {
-        $user = $this->findUserByUsername($user);
-        $followers = $user->follows->pluck('id')->toArray();
 
-        array_push($followers, $user->id);
-        $chusqers = Chusqer::whereIn('user_id', $followers)->latest()->paginate(10);
-
-        return view('users.index', [
-            'user'      => $user,
-            'chusqers' => $chusqers,
-        ]);
     }
 
     /**
@@ -71,9 +63,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user)
     {
-        //
+        $user = $this->findUserByUsername($user);
+        $followers = $user->follows->pluck('id')->toArray();
+
+        array_push($followers, $user->id);
+        $chusqers = Chusqer::whereIn('user_id', $followers)->latest()->paginate(10);
+
+        return view('users.index', [
+            'user'      => $user,
+            'chusqers' => $chusqers,
+        ]);
     }
 
     /**
@@ -201,7 +202,7 @@ class UsersController extends Controller
      */
     public function findUserByUsername($slug)
     {
-        return User::where('slug', $slug)->first();
+        return User::where('slug', $slug)->firstOrFail();
     }
 
     public function sendPrivateMessage($username, Request $request)

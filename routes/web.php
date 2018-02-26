@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/profile/delete', 'UsersController@destroy');
 });
 
-Route::get('/{user}', 'UsersController@index');
+Route::get('/{user}', 'UsersController@show');
 Route::get('/{user}/follows', 'UsersController@follows');
 Route::get('/{user}/followers', 'UsersController@followers');
 
