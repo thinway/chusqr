@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Chusqer extends Model
 {
+
+    use Searchable;
+
     // Con $fillable se indican explícitamente los campos de la tabla
     // que se podrán modificar programáticamente.
     //protected $fillable = ['content', 'author', 'image'];

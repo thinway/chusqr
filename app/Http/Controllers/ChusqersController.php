@@ -82,4 +82,15 @@ class ChusqersController extends Controller
 
         return $hashtags;
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('keywords');
+
+        $chusqers = Chusqer::with('user', 'hashtags')->where('content', 'LIKE', "%{$query}%")->paginate(10);
+
+        return view('home', [
+            'chusqers' => $chusqers
+        ]);
+    }
 }

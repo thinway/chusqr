@@ -21,7 +21,19 @@
             </ul>
         </div>
         <div class="top-bar-right">
+
             <ul class="dropdown menu" data-dropdown-menu>
+                <li>
+                    <div class="top-bar-right">
+                        <ul class="menu">
+                            <form action="/chusqers">
+                                <li>
+                                    <input type="search" placeholder="Buscar ..." id="keywords" name="keywords">
+                                </li>
+                            </form>
+                        </ul>
+                    </div>
+                </li>
                 @guest
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>

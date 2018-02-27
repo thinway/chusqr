@@ -16,6 +16,8 @@
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/saludo', 'PagesController@saludo');
 
+Route::get('/chusqers', 'ChusqersController@search');
+
 Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
 Route::get('/hashtag/{hashtag}', 'HashtagController@index');
 
