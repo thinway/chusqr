@@ -26,13 +26,13 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/chusqers/create', 'ChusqersController@create');
     Route::post('/chusqers/create', 'ChusqersController@store');
-    Route::get('/conversations/{conversation}', 'UsersController@showConversation');
+    Route::get('/conversations/{conversation}', 'UsersController@showConversation')->name('conversation.show');
     Route::post('/{user}/follow', 'UsersController@follow');
     Route::post('/{user}/unfollow', 'UsersController@unfollow');
     Route::post('/{user}/dms', 'UsersController@sendPrivateMessage');
 
 
-    Route::get('/profile/edit', 'UsersController@profile');
+    Route::get('/profile/edit', 'UsersController@profile')->name('profile');
     Route::get('/profile/account', 'UsersController@edit')->name('profile.account');
     Route::patch('/profile/account', 'UsersController@update');
     Route::get('/profile/password', 'UsersController@edit')->name('profile.password');
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/profile/delete', 'UsersController@destroy');
 });
 
-Route::get('/{user}', 'UsersController@show');
+Route::get('/{user}', 'UsersController@show')->name('user');
 Route::get('/{user}/follows', 'UsersController@follows');
 Route::get('/{user}/followers', 'UsersController@followers');
 

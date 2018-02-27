@@ -30,6 +30,17 @@ class Conversation extends Model
 
         return $conversation;
     }
+
+    public static function conversationId(User $user, User $other)
+    {
+        $query = Conversation::whereHas('users', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->whereHas('users', function ($query) use ($other) {
+            $query->where('user_id', $other->id);
+        });
+
+        return $query->first();
+    }
 }
 
 

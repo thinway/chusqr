@@ -9,6 +9,7 @@ use App\PrivateMessage;
 use App\User;
 use Illuminate\Foundation\Testing\HttpException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -71,9 +72,12 @@ class UsersController extends Controller
         array_push($followers, $user->id);
         $chusqers = Chusqer::whereIn('user_id', $followers)->latest()->paginate(10);
 
+        $conversation = Conversation::conversationId(Auth::user(), $user);
+
         return view('users.index', [
-            'user'      => $user,
-            'chusqers' => $chusqers,
+            'user'          => $user,
+            'chusqers'      => $chusqers,
+            'conversation'  => $conversation
         ]);
     }
 
@@ -225,6 +229,10 @@ class UsersController extends Controller
 
     public function showConversation(Conversation $conversation)
     {
+        if(! $conversation->users()->get()->contains(Auth::user())){
+            return redirect()->route('profile');
+        }
+
         return view('users.conversation', [
             'conversation' => $conversation
         ]);
