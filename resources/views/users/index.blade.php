@@ -47,6 +47,7 @@
                             <button type="submit" class="button">Mensaje Directo</button>
                         </form>
                     @endif
+
                     @if( $conversation )
                             <a href="{{ route('conversation.show', $conversation->id) }}">Mensajes</a>
                     @endif

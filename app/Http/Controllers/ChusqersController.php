@@ -87,7 +87,8 @@ class ChusqersController extends Controller
     {
         $query = $request->input('keywords');
 
-        $chusqers = Chusqer::with('user', 'hashtags')->where('content', 'LIKE', "%{$query}%")->paginate(10);
+        $chusqers = Chusqer::search($query)->paginate(10);
+        $chusqers->load('user');
 
         return view('home', [
             'chusqers' => $chusqers

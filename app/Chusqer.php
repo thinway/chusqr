@@ -8,7 +8,6 @@ use Laravel\Scout\Searchable;
 
 class Chusqer extends Model
 {
-
     use Searchable;
 
     // Con $fillable se indican explícitamente los campos de la tabla
@@ -42,4 +41,13 @@ class Chusqer extends Model
 
         return  Storage::disk('public')->url($image);
     }
+
+    public function toSearchableArray()
+    {
+        $this->load('user');
+
+        return $this->toArray();
+    }
+
+
 }

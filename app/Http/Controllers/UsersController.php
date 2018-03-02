@@ -72,7 +72,12 @@ class UsersController extends Controller
         array_push($followers, $user->id);
         $chusqers = Chusqer::whereIn('user_id', $followers)->latest()->paginate(10);
 
-        $conversation = Conversation::conversationId(Auth::user(), $user);
+        if(Auth::user()){
+            $conversation = Conversation::conversationId(Auth::user(), $user);
+        }else{
+            $conversation = null;
+        }
+
 
         return view('users.index', [
             'user'          => $user,
