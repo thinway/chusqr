@@ -83,12 +83,20 @@ class ChusqersController extends Controller
         return $hashtags;
     }
 
+    /**
+     * Realiza una búsqueda sobre el contenido de los chusqers.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(Request $request)
     {
         $query = $request->input('keywords');
 
-        $chusqers = Chusqer::search($query)->paginate(10);
-        $chusqers->load('user');
+        $chusqers = Chusqer::where('content', 'like', "%{$query}%")->paginate(10);
+        // Configuración para buscar en Algolia
+        // $chusqers = Chusqer::search($query)->paginate(10);
+        // $chusqers->load('user');
 
         return view('home', [
             'chusqers' => $chusqers
