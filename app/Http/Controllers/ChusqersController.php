@@ -99,7 +99,7 @@ class ChusqersController extends Controller
         // $chusqers->load('user');
 
         return view('home', [
-            'chusqers' => $chusqers
+            'chusqers' => $chusqers,
         ]);
     }
 }

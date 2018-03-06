@@ -15,7 +15,6 @@
     @endforelse
 
     <div class="text-center">
-        {{ $chusqers->links() }}
+        {{ $chusqers->appends(request()->except('page'))->links() }}
     </div>
-
 @endsection
