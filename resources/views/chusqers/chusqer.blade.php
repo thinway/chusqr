@@ -10,7 +10,14 @@
             <a href="/hashtag/{{ $hashtag->slug }}"><span class="label label-primary">{{ $hashtag->slug }}</span></a>
         @endforeach
     </p>
+    @can('delete', $chusqer)
     <div class="card-section">
+        <form action="{{ Route('chusqers.delete', $chusqer->id) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
 
+            <button type="submit" class="button alert">Borra</button>
+        </form>
     </div>
+    @endcan
 </div>

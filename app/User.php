@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -66,9 +67,12 @@ class User extends Authenticatable
         return $this->follows->contains($user);
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     public function isMe(User $user)
     {
         return $this->slug == $user->slug;
     }
-
 }

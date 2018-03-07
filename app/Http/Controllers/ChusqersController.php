@@ -6,6 +6,7 @@ use App\Chusqer;
 use App\Hashtag;
 use App\Http\Requests\CreateChusqerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChusqersController extends Controller
 {
@@ -101,5 +102,16 @@ class ChusqersController extends Controller
         return view('home', [
             'chusqers' => $chusqers,
         ]);
+    }
+
+    public function destroy(Chusqer $chusqer)
+    {
+        if( ! Auth::user()->can('delete', $chusqer) ){
+           return redirect()->route('home');
+        }
+
+        $chusqer->delete();
+
+        return redirect()->route('user', Auth::user()->slug);
     }
 }

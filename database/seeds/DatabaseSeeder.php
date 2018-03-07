@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
 
-            $chusqers->each(function(App\Chusqer $chusqer) use ($chusqers, $hashtags, $users){
+            $chusqers->each(function(App\Chusqer $chusqer) use ($hashtags){
                 $chusqer->hashtags()->sync(
                     $hashtags->random(mt_rand(1,5))
                 );

@@ -23,6 +23,15 @@ class ChusqersTest extends TestCase
         $response = $this->get('/chusqers/'.$chusqer->id);
 
         $response->assertStatus(200);
-        $response->assertSee($chusqer->content);
+        $response->assertSeeText(e($chusqer->content));
+    }
+
+    public function testCreateChusqerPageLoads()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->get('/chusqers/create');
+
+        $response->assertStatus(200);
     }
 }
