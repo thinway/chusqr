@@ -75,4 +75,10 @@ class User extends Authenticatable
     {
         return $this->slug == $user->slug;
     }
+
+    public function amI()
+    {
+        return Auth::user()->id == $this->id;
+    }
+
 }

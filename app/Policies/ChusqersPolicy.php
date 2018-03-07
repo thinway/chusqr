@@ -43,7 +43,7 @@ class ChusqersPolicy
      */
     public function update(User $user, Chusqer $chusqer)
     {
-        //
+        return $user->id == $chusqer->user_id;
     }
 
     /**

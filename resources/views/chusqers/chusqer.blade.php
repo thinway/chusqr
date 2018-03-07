@@ -10,14 +10,20 @@
             <a href="/hashtag/{{ $hashtag->slug }}"><span class="label label-primary">{{ $hashtag->slug }}</span></a>
         @endforeach
     </p>
-    @can('delete', $chusqer)
+    @if(Auth::user() && Auth::user()->amI())
     <div class="card-section">
-        <form action="{{ Route('chusqers.delete', $chusqer->id) }}" method="POST">
+        @can('update', $chusqer)
+            <a href="{{ Route('chusqers.edit', $chusqer) }}" class="button warning">Editar</a>
+        @endcan
+        @can('delete', $chusqer)
+        <form action="{{ Route('chusqers.delete', $chusqer->id) }}" method="POST" id="chusqer-actions-buttons">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
 
             <button type="submit" class="button alert">Borra</button>
+
         </form>
+        @endcan
     </div>
-    @endcan
+    @endif
 </div>

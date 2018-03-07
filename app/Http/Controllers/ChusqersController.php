@@ -7,6 +7,7 @@ use App\Hashtag;
 use App\Http\Requests\CreateChusqerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ChusqersController extends Controller
 {
@@ -68,6 +69,68 @@ class ChusqersController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Edit the chusqer data.
+     *
+     * @param Chusqer $chusqer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function edit(Chusqer $chusqer)
+    {
+        if( ! Auth::user()->can('delete', $chusqer) ){
+            return redirect()->route('home');
+        }
+
+        return view('chusqers.edit', [
+            'chusqer' => $chusqer
+        ]);
+    }
+
+    public function patch(CreateChusqerRequest $request, Chusqer $chusqer)
+    {
+        if( ! Auth::user()->can('delete', $chusqer) ){
+            return redirect()->route('home');
+        }
+
+        if( $image = $request->file('image') ){
+            if( !strpos($chusqer->image, "http") ) {
+                $routeParts = explode('/', $chusqer->image);
+                Storage::disk('public')->delete('chusqers/'.end($routeParts));
+            }
+
+            $url = $image->store('chusqers','public');
+        }else{
+            $url = $chusqer->image;
+        }
+
+
+
+        $chusqer->fill([
+            'content' => $request->input('content'),
+            'image'     => $url,
+        ]);
+
+        $chusqer->update();
+
+        return redirect()->route('chusqers.show', $chusqer);
+
+    }
+
+    /**
+     * @param Chusqer $chusqer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Chusqer $chusqer)
+    {
+        if( ! Auth::user()->can('delete', $chusqer) ){
+            return redirect()->route('home');
+        }
+
+        $chusqer->delete();
+
+        return redirect()->route('user', Auth::user()->slug);
+    }
+
     public function extractHashtags($content)
     {
         preg_match_all("/(#\w+)/u", $content, $matches);
@@ -104,14 +167,6 @@ class ChusqersController extends Controller
         ]);
     }
 
-    public function destroy(Chusqer $chusqer)
-    {
-        if( ! Auth::user()->can('delete', $chusqer) ){
-           return redirect()->route('home');
-        }
 
-        $chusqer->delete();
 
-        return redirect()->route('user', Auth::user()->slug);
-    }
 }

@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/chusqers/create', 'ChusqersController@create');
     Route::post('/chusqers/create', 'ChusqersController@store');
+    Route::get('/chusqers/{chusqer}/edit', 'ChusqersController@edit')->name('chusqers.edit');
+    Route::patch('/chusqers/{chusqer}', 'ChusqersController@patch')->name('chusqers.patch');
     Route::delete('/chusqers/{chusqer}', 'ChusqersController@destroy')->name('chusqers.delete');
     Route::get('/conversations/{conversation}', 'UsersController@showConversation')->name('conversation.show');
     Route::post('/{user}/follow', 'UsersController@follow');
@@ -44,7 +46,7 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/chusqers', 'ChusqersController@search');
-Route::get('/chusqers/{chusqer}', 'ChusqersController@show');
+Route::get('/chusqers/{chusqer}', 'ChusqersController@show')->name('chusqers.show');
 
 Route::get('/{user}', 'UsersController@show')->name('user');
 Route::get('/{user}/follows', 'UsersController@follows');

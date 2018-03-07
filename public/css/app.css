@@ -40,3 +40,8 @@ div.success {
     margin-right: 0.625rem;
     margin-left: 0.625rem;
 }
+
+form#chusqer-actions-buttons {
+    display: inline;
+    float: right;
+}

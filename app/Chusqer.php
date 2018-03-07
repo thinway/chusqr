@@ -49,5 +49,4 @@ class Chusqer extends Model
         return $this->toArray();
     }
 
-
 }
