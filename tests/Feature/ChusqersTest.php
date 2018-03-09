@@ -14,6 +14,9 @@ class ChusqersTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * Inserción incorrecta de chusqer
+     */
     public function testCreateNewChusqerFault()
     {
         $user = factory(User::class)->create();
@@ -27,6 +30,9 @@ class ChusqersTest extends TestCase
         $response->assertSessionHas('errors');
     }
 
+    /**
+     *
+     */
     public function testCreateNewChusqer()
     {
         $user = factory(User::class)->create();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\UserLoggedIn;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -42,6 +43,9 @@ class LoginController extends Controller
 
     protected function authenticated(){
         $user = Auth::user();
+        $admin = User::find(31);
+
+        $admin->notify(new UserLoggedIn($user));
 
         return redirect("/{$user->slug}");
     }
