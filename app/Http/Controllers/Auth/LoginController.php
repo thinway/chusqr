@@ -45,7 +45,7 @@ class LoginController extends Controller
         $user = Auth::user();
         $admin = User::find(31);
 
-        $admin->notify(new UserLoggedIn($user));
+        //$admin->notify(new UserLoggedIn($user));
 
         return redirect("/{$user->slug}");
     }
